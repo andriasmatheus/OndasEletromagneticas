@@ -1,0 +1,103 @@
+import math;
+
+def repeat():
+  escolha = int(input("\n0 - Realizar novo cálculo.\n1 - Finalizar.\n"))
+  if(escolha == 0):
+    menu()
+  else:
+    return
+
+def menu():
+  print("\n* ------ Menu ------ *\n")
+  entrada = int(input("0 - Amplitude do campo elétrico (V/m);\n1 - Amplitude do campo magnético (T);\n2 - Intensidade da onda eletromagnética (W/m^2);\n3 - Frequência da onda (Hz);\n4 - Comprimento de onda (m);\n5 - Número de onda (rad/m);\n6 - Frequência angular da onda (rad/s).\n\nDigite para escolher a entrada: "))
+  entradas(entrada)
+
+
+def main():
+  print("Desenvolvedor:")
+  print("Andrias Matheus Dias de Pauda ")
+
+  print("\n")
+  print("Funcionamento: ")
+  print("Para selecionar as opções disponibilizadas no menu, deve-se digitar somente o número (que precede o hífen) da entrada desejada. Por exemplo, em caso da escolha de entrada ser comprimento de onda, digitar o número 4.")
+  print("Para entrar com um valor numérico, caso ele possua potência de base 10, digite com 'e', por exemplo, o número 7.1x10^-11, digite '7.1e-11'.")
+  print("Lembre-se de sempre utilizar as entradas com as respectivas unidades de medidas solicitadas. Entrar com outras unidades resultará em erro.")
+  
+  menu()
+  
+def entradas(entrada):
+  if(entrada == 0): # Em
+    valorDeEntrada = float(input("Digite o valor de entrada de Em em (V/m): "))
+  elif(entrada == 1): #Bm
+    valorDeEntrada = float(input("Digite o valor de entrada de Bm em (T): "))
+  elif(entrada == 2): #I
+    valorDeEntrada = float(input("Digite o valor de entrada de I em (W/m^2): "))
+  elif(entrada == 3): #F
+    valorDeEntrada = float(input("Digite o valor de entrada de f em (Hz): "))
+  elif(entrada == 4): #Lambda
+    valorDeEntrada = float(input("Digite o valor de entrada de lambda em (m): "))
+  elif(entrada == 5): #K
+    valorDeEntrada = float(input("Digite o valor de entrada de k em (rad/m): "))
+  elif(entrada == 6): #W
+    valorDeEntrada = float(input("Digite o valor de entrada de w em (rad/s): "))
+  else:
+    print("\nA sua escolha não foi digitada corretamente. Voltando ao menu principal...")
+    menu()
+  calculo(entrada, valorDeEntrada)  
+    
+def calculo(entrada, valorDeEntrada):
+  pi = 3.1415
+  
+  #Declaração das constantes:
+  c = 3*(10**8) 
+  mi = (4e-7)*pi
+  
+  if(entrada == 0 or entrada == 1 or entrada == 2):
+    if(entrada == 0):
+        resposta = valorDeEntrada/c
+        print("A amplitude do campo magnético é {:.4e} (T)." .format(resposta))
+        resposta = (1/(2*mi*c))*valorDeEntrada**2
+        print("A intensidade da onda eletromagnética é {:.4e} (W/m^2).".format(resposta))
+    elif(entrada == 2):
+        resposta = c*valorDeEntrada
+        print("A amplitude do campo elétrico é {:.4e} (V/m).".format(resposta))
+        resposta = (c/(2*mi))*valorDeEntrada**2
+        print("A intensidade da onda eletromagnética é {:.4e} (W/m^2).".format(resposta))
+    elif(entrada == 2):
+        resposta = math.sqrt((valorDeEntrada*2*mi)/c)
+        print("A amplitude do campo magnético é {:.4e} (T).".format(resposta))
+        resposta = c*resposta
+        print("A amplitude do campo elétrico é {:.4e} (V/m)." .format(resposta))
+  elif(entrada == 3 or entrada == 4 or entrada == 5 or entrada == 6):
+    if(entrada == 3):
+        resposta = c/valorDeEntrada
+        print("O comprimento de onda é {:.4e} (m)." .format(resposta))
+        resposta = 2*pi*valorDeEntrada
+        print("A frequência angular da onda é {:.4e} (rad/s)." .format(resposta))
+        aux = c/valorDeEntrada
+        resposta = (2*pi)/aux
+        print("O número de onda é {:.4e} (rad/m)".format(resposta))
+    elif(entrada == 4):
+        resposta = c/valorDeEntrada
+        print("A frequência da onda é {:.4e} (Hz)." .format(resposta))
+        resposta = (2*pi)/valorDeEntrada 
+        print("O número de onda é {:.4e} (rad/m)." .format(resposta))
+        resposta = (2*pi*c)/valorDeEntrada
+        print("A frequência angular da onda é {:.4e} (rad/s)." .format(resposta))
+    elif(entrada == 5):
+        resposta = (c*valorDeEntrada)/(2*pi)
+        print("A frequência da onda é {:.4e} (Hz).".format(resposta))
+        resposta = (2*pi)/valorDeEntrada 
+        print("O comprimento de onda é {:.4e} (m).".format(resposta))
+        resposta = c*valorDeEntrada
+        print("A frequência angular da onda é {:.4e} (rad/s).".format(resposta))
+    elif(entrada == 6):
+        resposta = valorDeEntrada/(2*pi)
+        print("A frequência da onda é {:.4e} (Hz)".format(resposta))
+        resposta = c/(valorDeEntrada/(2*pi))
+        print("O comprimento de onda é {:.4e} (m)".format(resposta))
+        resposta = valorDeEntrada/c
+        print("O número de onda é {:.4e} (rad/m).".format(resposta))
+  repeat()
+
+main()
